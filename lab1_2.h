@@ -2,13 +2,13 @@
 #include <iostream>
 class Vector
 {
+    int mem{};//выделенная память
+    int length{};//размер
+    int *values;//массив значений
 public:
-        int x;//начало вектора
-        int y;//конец вектора
-    int *values;//длина
     Vector();//по умолчанию
     Vector(const Vector& other);//копирование
-    explicit Vector(const size_t& size);//с параметрами
+    Vector(const size_t& size, const int* initValue);
     Vector& operator=(const Vector& other);//оператор присваивания копированием
     ~Vector();//деструктор
      int& operator[](const size_t& index) const;

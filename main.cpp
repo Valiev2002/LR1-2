@@ -2,7 +2,7 @@
 #include <iostream>
 int main() {
     Vector vec1;
-    Vector vec2(7);
+    Vector vec2(vec1);
     std::cout << vec2;
     std::cout << vec2.size() << std::endl;
     vec2.push_back(2);

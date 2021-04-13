@@ -3,50 +3,48 @@
 #include<vector>
 #include<algorithm>
 Vector::Vector() {//по умолчанию
-    values= new int[10];
-x=1;
-y=5;
+    values = new int[10];
+    length = 10;
 }
 Vector::Vector(const Vector &other) {//копирование
-x=other.x;
-y=other.y;
-    values=new int[y];
-    for(int i=0;i<10;++i)
+mem=other.mem;
+length=other.length;
+    values=new int[length];
+    for(int i=0;i<length;++i)
     {
         values[i]=other.values[i];
     }
 }
-Vector::Vector(const size_t& x1) {//с парамаетрами
-    x = x1;
-    y = 10;
-    values= new int[y];
-    for (int i = 0; i < x; ++i) {
-        values[i] =rand();
+Vector::Vector(const size_t &size, const int *initValue) {
+    values = new int[mem];
+    for(int i = 0; i < mem; ++i){
+        values[i] = initValue[i];
     }
 }
 Vector &Vector::operator = (const Vector &other) {//присваивание копированием
-    delete[] values;
-    x=other.x;
-    y=other.y;
-    values = new int[x];
-    for (int i = 0; i < y; i++) {
-        values[i] = other.values[i];
+    if (this != &other)
+    {
+        mem = other.mem;
+        length=other.length;
+        delete[] values;
+        values = new int[mem];
+        for (size_t i = 0; i < length; ++i)
+            values[i] = other.values[i];
     }
     return* this;
 }
 Vector::~Vector() {
     delete[] values;
-
 }
 int &Vector::operator[](const size_t &v) const {
     return values[v];
 }
 size_t Vector::size() const {
-   return y;
+   return length;
 }
 int Vector::find(int value) const {
     {
-        for (int i = 0; i < y; i++)
+        for (int i = 0; i < length; i++)
         {
             if (values[i] ==value)
             {
@@ -57,22 +55,22 @@ int Vector::find(int value) const {
     }
 }
 void Vector::push_back(const int &value) {
-    if (x == y)
+    if (mem == length)
     {
-        x += 10;
-        int* Newdata = new int[x];
-        for (int i = 0; i < y; i++)
+        mem += 10;
+        int* Newdata = new int[mem];
+        for (int i = 0; i < length; i++)
         {
             Newdata[i] = values[i];
         }
         delete[] values;
         values = Newdata;
     }
-    values[y] = value;
-    y++;
+    values[length] = value;
+    length++;
 }
 void Vector::replace(const int &oldValue, const int &newValue) const {
-    for (int i = 0; i < y; i++)
+    for (int i = 0; i < length; i++)
         if (values[i] == oldValue){
             values[i] = newValue;
             break;
@@ -80,7 +78,7 @@ void Vector::replace(const int &oldValue, const int &newValue) const {
  }
 std::ostream& operator<<(std::ostream& out, Vector& vec)
 {
-    for (int i = 0; i < vec.y; i++)
+    for (int i = 0; i < vec.size(); i++)
     {
         out << vec[i] << " ";
     }
