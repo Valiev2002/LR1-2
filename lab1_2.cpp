@@ -4,7 +4,7 @@
 #include<algorithm>
 Vector::Vector() {//по умолчанию
     values = new int[10];
-    length = 10;
+    mem = 10;
 }
 Vector::Vector(const Vector &other) {//копирование
 mem=other.mem;
