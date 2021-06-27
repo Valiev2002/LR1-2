@@ -5,22 +5,22 @@
 Vector::Vector() {//по умолчанию
     values = new int[10];
     length = 10;
+    mem=1;
 }
 Vector::Vector(const Vector &other) {//копирование
-mem=other.mem;
-length=other.length;
-    values=new int[length];
-    for(int i=0;i<length;++i)
+    mem=other.mem;
+    length=other.length;
+    values=new int[mem];
+    for(int i=0;i<mem;++i)
     {
         values[i]=other.values[i];
     }
 }
-Vector::Vector(const size_t &size, const int *initValue) {
-    values = new int[mem];
-    for(int i = 0; i < mem; ++i){
-        values[i] = initValue[i];
+Vector::Vector(const size_t &size, const int &initValue) {
+    length = size;
+    mem = initValue;
     }
-}
+
 Vector &Vector::operator = (const Vector &other) {//присваивание копированием
     if (this != &other)
     {
@@ -40,7 +40,7 @@ int &Vector::operator[](const size_t &v) const {
     return values[v];
 }
 size_t Vector::size() const {
-   return length;
+    return length;
 }
 int Vector::find(int value) const {
     {
@@ -75,7 +75,7 @@ void Vector::replace(const int &oldValue, const int &newValue) const {
             values[i] = newValue;
             break;
         }
- }
+}
 std::ostream& operator<<(std::ostream& out, Vector& vec)
 {
     for (int i = 0; i < vec.size(); i++)
@@ -83,5 +83,5 @@ std::ostream& operator<<(std::ostream& out, Vector& vec)
         out << vec[i] << " ";
     }
     out << std::endl;
-return out;
+    return out;
 }
