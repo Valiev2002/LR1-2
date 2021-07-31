@@ -4,30 +4,32 @@
 #include<algorithm>
 Vector::Vector() {//по умолчанию
     values = new int[10];
-    length = 10;
-    mem=1;
+    length = 0;
+    capacity=10;
 }
 Vector::Vector(const Vector &other) {//копирование
-    mem=other.mem;
+    capacity=other.capacity;
     length=other.length;
-    values=new int[mem];
-    for(int i=0;i<mem;++i)
+    values=new int[capacity];
+    for(int i=0;i<length;++i)//проходимся по текущей длине вектора
     {
         values[i]=other.values[i];
     }
 }
-Vector::Vector(const size_t &size, const int &initValue) {
-    length = size;
-    mem = initValue;
+Vector::Vector(const size_t &size, const int &initValue) {// с параметрами
+   capacity = size;
+    length= size;
+    values = new int [capacity];
+    for (int i = 0; i < length; ++i)
+        values[i] = initValue;
     }
-
 Vector &Vector::operator = (const Vector &other) {//присваивание копированием
     if (this != &other)
     {
-        mem = other.mem;
+        capacity = other.capacity;
         length=other.length;
         delete[] values;
-        values = new int[mem];
+        values = new int[capacity];
         for (size_t i = 0; i < length; ++i)
             values[i] = other.values[i];
     }
@@ -55,10 +57,10 @@ int Vector::find(int value) const {
     }
 }
 void Vector::push_back(const int &value) {
-    if (mem == length)
+    if (capacity == length)
     {
-        mem += 10;
-        int* Newdata = new int[mem];
+        capacity += 10;
+        int* Newdata = new int[length];
         for (int i = 0; i < length; i++)
         {
             Newdata[i] = values[i];
@@ -66,7 +68,7 @@ void Vector::push_back(const int &value) {
         delete[] values;
         values = Newdata;
     }
-    values[length] = value;
+    values[capacity] = value;
     length++;
 }
 void Vector::replace(const int &oldValue, const int &newValue) const {

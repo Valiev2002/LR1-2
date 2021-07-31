@@ -2,7 +2,7 @@
 #include <iostream>
 class Vector
 {
-    int mem{};//выделенная память
+    int capacity{};//емкость
     int length{};//размер
     int *values;//массив значений
 public:
