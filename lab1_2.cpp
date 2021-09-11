@@ -59,17 +59,15 @@ int Vector::find(int value) const {
 void Vector::push_back(const int &value) {
     if (capacity == length)
     {
-        capacity += 10;
-        int* Newdata = new int[length];
-        for (int i = 0; i < length; i++)
-        {
-            Newdata[i] = values[i];
-        }
-        delete[] values;
-        values = Newdata;
+ int new_cap = capacity*2;
+ int *array = new int[new_cap];//создаем массив с новой еикостью
+for (int i = 0; i <length;++i)//обновляем информацию
+    array[i] = values[i];
+delete[] values;//удаляем старый мвссив
+values = array;//присваиваем новый массив(если так можно сказать)
+capacity =new_cap;//обнволяем емкость
     }
-    values[capacity] = value;
-    length++;
+    values[length++] = value;
 }
 void Vector::replace(const int &oldValue, const int &newValue) const {
     for (int i = 0; i < length; i++)
